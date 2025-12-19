@@ -14,7 +14,7 @@ You'll need to install `clang` and `make` to build this template.
 
 On Linux and MacOS, you'll need to also ensure that you have the `zip` utility installed.
 
-You'll also need to build [N64Recomp](https://github.com/N64Recomp/N64Recomp) for the `RecompModTool` utility.
+You'll also need a copy of the `RecompModTool` utility from the [N64Recomp](https://github.com/N64Recomp/N64Recomp) repository. A prebuilt version is available for Windows and Linux in the GitHub release.
 
 ### Building
 * First, run `make` (with an optional job count) to build the mod code itself.
