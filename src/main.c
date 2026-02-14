@@ -9,7 +9,7 @@
 RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_register_replacement(enum asset_e asset_id, void *asset_data));
 RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_unregister_replacement(enum asset_e asset_id));
 
-RECOMP_CALLBACK("*", recomp_on_init)
+RECOMP_HOOK_RETURN("assetCache_init")
 void onInit()
 {
     for(int i = 0; i < ASSETS_SIZE; i++)
