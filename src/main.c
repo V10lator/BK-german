@@ -40,11 +40,3 @@ void onInit()
     D_8036C4E0[2].str = (u8 *)"STATISTIK";
     D_8036C4E0[3].str = (u8 *)"SICHERN UND ENDE";
 }
-/* TODO
-RECOMP_CALLBACK("*", recomp_exit)
-void on_deinit()
-{
-    for(int i = 0; i < ASSETS_SIZE; i++)
-        bk_recomp_aep_unregister_replacement(asset_name[i]);
-}
-*/
