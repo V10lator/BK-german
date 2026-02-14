@@ -8,6 +8,7 @@ authors = [ "V10lator" ]
 game_id = "bk"
 minimum_recomp_version = "0.0.2"
 dependencies = [ "bk_recomp_asset_expansion_pak:0.0.2" ]
+conflicts = [ "font_plus_latin_1" ]
 optional_dependencies = []
 native_libraries = []
 
