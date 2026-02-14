@@ -17,7 +17,7 @@ TARGET  := $(BUILD_DIR)/mod.elf
 
 LDSCRIPT := mod.ld
 ARCHFLAGS := -target mips -mips2 -mabi=32 -O3 -ftree-vectorize -ftree-slp-vectorize -pipe -fno-ident \
-	     -G0 -mno-abicalls -mno-odd-spreg -mno-check-zero-division \
+	     -G0 -Wall -Wextra -mno-abicalls -mno-odd-spreg -mno-check-zero-division \
              -fomit-frame-pointer -ffast-math -fno-builtin-memset -funsigned-char -fno-builtin-sinf -fno-builtin-cosf
 WARNFLAGS := -Wall -Wextra -Wno-incompatible-library-redeclaration -Wno-unused-parameter -Wno-unknown-pragmas -Wno-unused-variable \
              -Wno-missing-braces -Wno-unsupported-floating-point-opt -Wno-cast-function-type-mismatch -Werror=section -Wno-visibility
