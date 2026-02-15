@@ -96,24 +96,14 @@ void overwriteGCZoombox(s32 gamenum)
 
     u8 *ptr = (u8 *)D_80383010.zoombox[D_80383010.selection];
     void *box = ptr;
-    if(ptr)
+    ptr += 0x13C;
+    char *old = *(char **)ptr;
+
+    if(old != NULL && old[0] == 'A')
     {
-        ptr += 0x13C;
-        char *old = *(char **)ptr;
+        char *ne = D_80383010.unk3_6 ? "BIST DU SICHER?" : "A - JA, B - NEIN";
 
-        if(old != NULL && old[0] == 'A')
-        {
-            char *ne;
-            if(old[1] == 'R' && old[2] == 'E')
-                ne = "BIST DU SICHER?";
-            else if(old[1] == ' ' && old[2] == '-')
-                ne = "A - JA, B - NEIN";
-            else
-                return;
-
-            char *n[1] = { ne };
-            func_8031877C(box);
-            gczoombox_setStrings(box, 1, n);
-        }
+        func_8031877C(box);
+        gczoombox_setStrings(box, 1, &ne);
     }
 }

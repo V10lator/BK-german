@@ -15,6 +15,7 @@ extern void *chGameSelectBottomZoombox;
 // core2/gc/zoombox.c
 extern u32 gczoombox_setStrings(void *, s32, char **);
 extern void gczoombox_maximize(void *);
+extern void gczoombox_minimize(void *);
 extern void gczoombox_resolve_minimize(void *);
 extern u32 func_8031877C(void *);
 
