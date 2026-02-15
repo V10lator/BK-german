@@ -76,8 +76,6 @@ void overwriteGKZoombox(s32 gamenum)
 
     func_8031877C(chGameSelectBottomZoombox);
     gczoombox_setStrings(chGameSelectBottomZoombox, 2, new);
-    gczoombox_maximize(chGameSelectBottomZoombox);
-    gczoombox_resolve_minimize(chGameSelectBottomZoombox);
 }
 
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
