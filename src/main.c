@@ -9,6 +9,7 @@
 #include "strhelper.h"
 
 RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_register_replacement(enum asset_e asset_id, void *asset_data));
+RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_register_replacement_with_size(enum asset_e asset_id, void *asset_data, s32 size));
 RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_unregister_replacement(enum asset_e asset_id));
 
 static char new0[0x20];
@@ -20,7 +21,12 @@ RECOMP_HOOK_RETURN("assetCache_init")
 void onInit()
 {
     for(int i = 0; i < ASSETS_SIZE; i++)
-        bk_recomp_aep_register_replacement(asset_name[i], (void *)asset_data[i]);
+    {
+        if(asset_size[i] == 0x00)
+            bk_recomp_aep_register_replacement(asset_name[i], (void *)asset_data[i]);
+        else
+            bk_recomp_aep_register_replacement_with_size(asset_name[i], (void *)asset_data[i], (u32)asset_size[i]);
+    }
 
     CONTROL_STICK_INSTRUCTIONS = (u8 *)"W[HLE MIT DEM 3D-STICK EIN SPIEL AUS.";
     ERASE_INSTRUCTIONS = (u8 *)"DR]CKE A, UM ZU SPIELEN, ODER DEN Z-TRIGGER, UM DEN SPIELSTAND ZU L\\SCHEN!";
@@ -157,4 +163,3 @@ void onSetTextBox(void *box, char *old)
         gczoombox_setStrings(box, 1, &ne);
     }
 }
-

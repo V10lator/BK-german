@@ -23,21 +23,27 @@ int my_memcmp(u8 *a, u8 *b, int size)
     return 1;
 }
 
-char *my_strcpy_till(char *to, char *from, char till)
+void my_memcpy(u8 *to, const u8 *from, int size)
+{
+    for(int i = 0; i < size; i++)
+        to[i] = from[i];
+}
+
+char *my_strcpy_till(char *to, const char *from, char till)
 {
     while(*from != till)
         *to++ = *from++;
 
     *to = '\0';
-    return from;
+    return (char *)from;
 }
 
-void my_strcpy(char *to, char *from)
+void my_strcpy(char *to, const char *from)
 {
     my_strcpy_till(to, from, '\0');
 };
 
-char *my_strcat_till(char *to, char *from, char till)
+char *my_strcat_till(char *to, const char *from, char till)
 {
     while(*to != '\0')
         to++;
@@ -45,7 +51,7 @@ char *my_strcat_till(char *to, char *from, char till)
     return my_strcpy_till(to, from, till);
 }
 
-void my_strcat(char *to, char *from)
+void my_strcat(char *to, const char *from)
 {
     while(*to != '\0')
         to++;
