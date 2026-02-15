@@ -105,3 +105,56 @@ void overwriteGCZoombox(s32 gamenum)
         gczoombox_setStrings(box, 1, &ne);
     }
 }
+
+// TODO: Ugly workaround
+static u32 inPauseMenu = 0;
+
+RECOMP_HOOK("gcPauseMenu_update")
+void startEvent(s32 gamenum)
+{
+    if(D_80383010.state != 5)
+    {
+        inPauseMenu = 0;
+        return;
+    }
+
+    if(inPauseMenu)
+        return;
+
+    inPauseMenu = 1;
+}
+
+RECOMP_HOOK_RETURN("gcPauseMenu_update")
+void stopEvent(s32 gamenum)
+{
+    if(D_80383010.state != 5)
+    {
+        inPauseMenu = 0;
+        return;
+    }
+
+    if(inPauseMenu == 2)
+        D_8036C4E0[D_80383010.selection].unkF = 1;
+}
+
+RECOMP_HOOK("func_803183A4")
+void onSetTextBox(void *box, char *old)
+{
+    if(D_80383010.state != 5)
+    {
+        inPauseMenu = 0;
+        return;
+    }
+
+    if(inPauseMenu != 1 || box != D_80383010.zoombox[D_80383010.selection])
+        return;
+
+    inPauseMenu = 2;
+
+    if(old[0] == 'A')
+    {
+        char *ne = D_80383010.unk3_6 ? "BIST DU SICHER?" : "A - JA, B - NEIN";
+        gczoombox_setStrings(box, 1, &ne);
+    }
+}
+
