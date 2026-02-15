@@ -1,0 +1,7 @@
+{
+    "name": "German",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/V10lator/BK-german",
+    "description": "A german language mod",
+    "dependencies": [ "Asset_Expansion_Pak-0.0.3" ]
+}
