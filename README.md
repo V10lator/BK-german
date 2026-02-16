@@ -1,4 +1,5 @@
 # Banjo-Kazooie: German language mod
+![icon.png](https://raw.githubusercontent.com/V10lator/BK-german/refs/heads/master/thumb.png)
 
 This brings the german PAL translation into the recomp.
 
