@@ -5,6 +5,7 @@
 #include "recompconfig.h"
 
 #include "dialogs.h"
+#include "error.h"
 #include "imports.h"
 #include "strhelper.h"
 
@@ -26,7 +27,7 @@ void onInit()
     // Detect Latin 1 mod
     if(recomp_is_dependency_met("font_plus_latin_1") == DEPENDENCY_STATUS_FOUND)
     {
-        recomp_printf("German mod: Font Plus Latin 1 mod detected! Disabling ourself to prevent undefined behaviour\n");
+        showError("German mod: Font Plus Latin 1 mod detected! Disabling german to prevent undefined behaviour\n");
         disabled = 1;
         return;
     }
