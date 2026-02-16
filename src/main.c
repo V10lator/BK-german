@@ -56,15 +56,15 @@ void overwriteGKZoombox(s32 gamenum)
     old0 += 5;
 
     // Replace "GAME X:" with "SPIEL X:"
-    my_strcpy(new[0], "SPIEL ");
-    old0 = my_strcat_till(new[0], old0, ' ');
-    my_strcat(new[0], " ");
+    strcpy(new[0], "SPIEL ");
+    old0 = strcat_till(new[0], old0, ' ');
+    strcat(new[0], " ");
 
     old0++;
     if(old0[0] == 'E')
     {
         // Replace "EMPTY" with "LEER", also make sure second line is empty
-        my_strcat(new[0], "LEER");
+        strcat(new[0], "LEER");
         new[1][0] = '\0';
     }
     else
@@ -73,20 +73,20 @@ void overwriteGKZoombox(s32 gamenum)
 
         // First line
         // Replace "TIME XX:YY:ZZ," with "ZEIT XX:YY:ZZ,"
-        my_strcpy(new[0], "ZEIT ");
-        my_strcat_till(new[0], old0, ',');
-        my_strcat(new[0], ",");
+        strcpy(new[0], "ZEIT ");
+        strcat_till(new[0], old0, ',');
+        strcat(new[0], ",");
 
         // Second line
         // Replace "X JIGSAW[S]" with "X PUZZLEZEIL[E]"
-        old1 = my_strcpy_till(new[1], old1, ' ');
-        my_strcat(new[1], " PUZZLETEIL");
+        old1 = strcpy_till(new[1], old1, ' ');
+        strcat(new[1], " PUZZLETEIL");
         if(new[1][0] != '1')
-            my_strcat(new[1], "E");
+            strcat(new[1], "E");
 
         // Replace "X NOTE[S]" with "X NOTE[N]"
-        old1 = my_strstr(old1, ',');
-        char *n = my_strstr(old1, 'S');
+        old1 = strstr(old1, ',');
+        char *n = strstr(old1, 'S');
         if(n)
             *n = 'N';
 

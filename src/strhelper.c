@@ -1,6 +1,6 @@
 #include "strhelper.h"
 
-int my_strcmp(char *a, char *b)
+int strcmp(char *a, char *b)
 {
     do
     {
@@ -14,7 +14,7 @@ int my_strcmp(char *a, char *b)
     return 1;
 }
 
-int my_memcmp(u8 *a, u8 *b, int size)
+int memcmp(u8 *a, u8 *b, int size)
 {
     for(int i = 0; i < size; i++)
         if(a[i] != b[i])
@@ -22,14 +22,14 @@ int my_memcmp(u8 *a, u8 *b, int size)
 
     return 1;
 }
-
-void my_memcpy(u8 *to, const u8 *from, int size)
+/*
+void memcpy(u8 *to, const u8 *from, int size)
 {
     for(int i = 0; i < size; i++)
         to[i] = from[i];
 }
-
-char *my_strcpy_till(char *to, const char *from, char till)
+*/
+char *strcpy_till(char *to, const char *from, char till)
 {
     while(*from != till)
         *to++ = *from++;
@@ -37,29 +37,29 @@ char *my_strcpy_till(char *to, const char *from, char till)
     *to = '\0';
     return (char *)from;
 }
-
-void my_strcpy(char *to, const char *from)
+/*
+void strcpy(char *to, const char *from)
 {
     my_strcpy_till(to, from, '\0');
 };
-
-char *my_strcat_till(char *to, const char *from, char till)
+*/
+char *strcat_till(char *to, const char *from, char till)
 {
     while(*to != '\0')
         to++;
 
-    return my_strcpy_till(to, from, till);
+    return strcpy_till(to, from, till);
 }
-
-void my_strcat(char *to, const char *from)
+/*
+void strcat(char *to, const char *from)
 {
     while(*to != '\0')
         to++;
 
-    my_strcpy(to, from);
+    strcpy(to, from);
 }
-
-char *my_strstr(char *haystack, char needle)
+*/
+char *strstr(char *haystack, char needle)
 {
     while(*haystack != needle)
     {
