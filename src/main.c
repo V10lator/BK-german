@@ -17,11 +17,20 @@ RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_unregister_rep
 static char new[2][0x20];
 static char *newPA[2] = { new[0], new[1] };
 static u32 oldState = 2;
+static unsigned int disabled = 0;
 
 // Make sure to run after AEP initialised
 RECOMP_HOOK_RETURN("assetCache_init")
 void onInit()
 {
+    // Detect Latin 1 mod
+    if(recomp_is_dependency_met("font_plus_latin_1") == DEPENDENCY_STATUS_FOUND)
+    {
+        recomp_printf("German mod: Font Plus Latin 1 mod detected! Disabling ourself to prevent undefined behaviour\n");
+        disabled = 1;
+        return;
+    }
+
     int i = 0;
     // Feed quiz/grunty asset replacements to AEP
     for( ; i < ASSETS_SIZES_SIZE; i++)
@@ -45,6 +54,9 @@ void onInit()
 RECOMP_HOOK_RETURN("setGameInformationZoombox")
 void overwriteGKZoombox(s32 gamenum)
 {
+    if(disabled)
+        return;
+
     // Get text from zoombox (without having a struct, so pointer magic)
     u8 *ptr = (u8 *)chGameSelectBottomZoombox;
     ptr += 0x13C;
@@ -101,6 +113,9 @@ void overwriteGKZoombox(s32 gamenum)
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
 void overwriteGCZoombox(s32 gamenum)
 {
+    if(disabled)
+        return;
+
     // set oldState to 2 if not in exit game confirmation menu and exit
     if(D_80383010.state != 5)
     {
@@ -138,6 +153,9 @@ static u32 inPauseMenu = 0;
 RECOMP_HOOK("gcPauseMenu_update")
 void startEvent(s32 gamenum)
 {
+    if(disabled)
+        return;
+
     if(D_80383010.state != 5)
     {
         inPauseMenu = 0;

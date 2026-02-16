@@ -9,7 +9,7 @@ game_id = "bk"
 minimum_recomp_version = "1.0.1"
 dependencies = [ "bk_recomp_asset_expansion_pak:0.0.3" ]
 conflicts = [ "font_plus_latin_1" ]
-optional_dependencies = []
+optional_dependencies = [ "font_plus_latin_1" ]
 native_libraries = []
 
 [inputs]
