@@ -69,10 +69,9 @@ void overwriteGKZoombox(s32 gamenum)
     }
     else
     {
-        old0 += 5;
-
         // First line
         // Replace "TIME XX:YY:ZZ," with "ZEIT XX:YY:ZZ,"
+        old0 += 5;
         strcpy(new[0], "ZEIT ");
         strcat_till(new[0], old0, ',');
         strcat(new[0], ",");
@@ -98,29 +97,36 @@ void overwriteGKZoombox(s32 gamenum)
     gczoombox_setStrings(chGameSelectBottomZoombox, 2, newPA);
 }
 
+// Overwrite text of exit game confirmation
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
 void overwriteGCZoombox(s32 gamenum)
 {
+    // set oldState to 2 if not in exit game confirmation menu and exit
     if(D_80383010.state != 5)
     {
         oldState = 2;
         return;
     }
 
+    // If in-game state = oldState (0 or 1) then do nothinf
     if(D_80383010.unk3_6 == oldState)
         return;
 
     oldState = D_80383010.unk3_6;
 
+    // Get text from zoomox
     u8 *ptr = (u8 *)D_80383010.zoombox[D_80383010.selection];
     void *box = ptr;
     ptr += 0x13C;
     char *old = *(char **)ptr;
 
+    // Sanity check
     if(old != NULL && old[0] == 'A')
     {
+        // Choose correct string depending on in-game state
         char *ne = D_80383010.unk3_6 ? "BIST DU SICHER?" : "A - JA, B - NEIN";
 
+        // Set choosen string to zoombox
         func_8031877C(box);
         gczoombox_setStrings(box, 1, &ne);
     }
