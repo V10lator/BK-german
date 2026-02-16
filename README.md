@@ -4,7 +4,7 @@ This brings the german PAL translation into the recomp.
 
 ### Old version warning
 The update system of Thunderstore is a bit tricky, so versions prior to 1.0.3 won't update correctly.
-Delete all `german-1.0.=.nrm` files from your local mods folder in case you used older versions than 1.0.3
+Delete all `german-1.0.?.nrm` files from your local mods folder in case you used older versions than 1.0.3
 
 ### Conflicts
 This mod conflicts with the Lartin 1 mod.
