@@ -25,10 +25,10 @@ void onInit()
     // Feed dialog asset replacements to AEP
     for(int i = 0; i < ASSETS_SIZE; i++)
     {
-        if(asset_size[i] == 0x00)
-            bk_recomp_aep_register_replacement(asset_name[i], (void *)asset_data[i]);
-        else
+        if(i < ASSETS_SIZES_SIZE)
             bk_recomp_aep_register_replacement_with_size(asset_name[i], (void *)asset_data[i], (u32)asset_size[i]);
+        else
+            bk_recomp_aep_register_replacement(asset_name[i], (void *)asset_data[i]);
     }
 
     // Replace global pointers to menu strings
