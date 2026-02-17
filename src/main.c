@@ -44,7 +44,7 @@ void onInit()
     // Replace global pointers to menu strings
     CONTROL_STICK_INSTRUCTIONS = (u8 *)"W[HLE MIT DEM 3D-STICK EIN SPIEL AUS.";
     ERASE_INSTRUCTIONS = (u8 *)"DR]CKE A, UM ZU SPIELEN, ODER DEN Z-TRIGGER, UM DEN SPIELSTAND ZU L\\SCHEN!";
-    ERASE_CONFIRMATION = (u8 *)"SICHER? DR]CKE A, UM ZU BEST[TIGEN ODER B, UM ZU WIDERRUFEN.";
+    ERASE_CONFIRMATION = (u8 *)"SICHER? DR]CKE A, UM ZU BEST[TIGEN, ODER B, UM ZU WIDERRUFEN.";
 
     D_8036C4E0[0].str = (u8 *)"ZUR]CK ZUM SPIEL";
     D_8036C4E0[2].str = (u8 *)"STATISTIK";
@@ -140,7 +140,7 @@ void overwriteGCZoombox(s32 gamenum)
     if(old != NULL && old[0] == 'A')
     {
         // Choose correct string depending on in-game state
-        char *ne = D_80383010.unk3_6 ? "BIST DU SICHER?" : "A - JA, B - NEIN";
+        char *ne = D_80383010.unk3_6 ? "SICHER?" : "A - JA, B - NEIN";
 
         // Set choosen string to zoombox
         func_8031877C(box);
