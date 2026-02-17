@@ -20,6 +20,9 @@ static char *newPA[2] = { new[0], new[1] };
 static u32 oldState = 2;
 static unsigned int disabled = 0;
 
+static const char *sure  = "SICHER?";
+static const char *yesno = "A - JA, B - NEIN";
+
 // Make sure to run after AEP initialised
 RECOMP_HOOK_RETURN("assetCache_init")
 void onInit()
@@ -53,7 +56,7 @@ void onInit()
 
 // Overwrite text of game information zoombox (start game menu)
 RECOMP_HOOK_RETURN("setGameInformationZoombox")
-void overwriteGKZoombox(s32 gamenum)
+void overwriteGKZoombox()
 {
     if(disabled)
         return;
@@ -112,7 +115,7 @@ void overwriteGKZoombox(s32 gamenum)
 
 // Overwrite text of exit game confirmation
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
-void overwriteGCZoombox(s32 gamenum)
+void overwriteGCZoombox()
 {
     if(disabled)
         return;
@@ -140,11 +143,11 @@ void overwriteGCZoombox(s32 gamenum)
     if(old != NULL && old[0] == 'A')
     {
         // Choose correct string depending on in-game state
-        char *ne = D_80383010.unk3_6 ? "SICHER?" : "A - JA, B - NEIN";
+        const char *ne = D_80383010.unk3_6 ? sure : yesno;
 
         // Set choosen string to zoombox
         func_8031877C(box);
-        gczoombox_setStrings(box, 1, &ne);
+        gczoombox_setStrings(box, 1, (char **)&ne);
     }
 }
 
@@ -152,7 +155,7 @@ void overwriteGCZoombox(s32 gamenum)
 static u32 inPauseMenu = 0;
 
 RECOMP_HOOK("gcPauseMenu_update")
-void startEvent(s32 gamenum)
+void startEvent()
 {
     if(disabled)
         return;
@@ -170,7 +173,7 @@ void startEvent(s32 gamenum)
 }
 
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
-void stopEvent(s32 gamenum)
+void stopEvent()
 {
     if(D_80383010.state != 5)
     {
@@ -198,7 +201,7 @@ void onSetTextBox(void *box, char *old)
 
     if(old[0] == 'A')
     {
-        char *ne = D_80383010.unk3_6 ? "BIST DU SICHER?" : "A - JA, B - NEIN";
-        gczoombox_setStrings(box, 1, &ne);
+        const char *ne = D_80383010.unk3_6 ? sure : yesno;
+        gczoombox_setStrings(box, 1, (char **)&ne);
     }
 }
