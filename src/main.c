@@ -17,11 +17,8 @@ RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_unregister_rep
 // Our variables
 static char new[2][0x20];
 static char *newPA[2] = { new[0], new[1] };
-static u32 oldState = 2;
+static unsigned int tracker = 0;
 static unsigned int disabled = 0;
-
-static const char *sure  = "SICHER?";
-static const char *yesno = "A - JA, B - NEIN";
 
 // Make sure to run after AEP initialised
 RECOMP_HOOK_RETURN("assetCache_init")
@@ -113,95 +110,45 @@ void overwriteGKZoombox()
     gczoombox_setStrings(chGameSelectBottomZoombox, 2, newPA);
 }
 
-// Overwrite text of exit game confirmation
-RECOMP_HOOK_RETURN("gcPauseMenu_update")
-void overwriteGCZoombox()
-{
-    if(disabled)
-        return;
+// Overwrite text of exit game confirmation - this has multiple steps
 
-    // set oldState to 2 if not in exit game confirmation menu and exit
-    if(D_80383010.state != 5)
-    {
-        oldState = 2;
-        return;
-    }
-
-    // If in-game state = oldState (0 or 1) then do nothinf
-    if(D_80383010.unk3_6 == oldState)
-        return;
-
-    oldState = D_80383010.unk3_6;
-
-    // Get text from zoomox
-    u8 *ptr = (u8 *)D_80383010.zoombox[D_80383010.selection];
-    void *box = ptr;
-    ptr += 0x13C;
-    char *old = *(char **)ptr;
-
-    // Sanity check
-    if(old != NULL && old[0] == 'A')
-    {
-        // Choose correct string depending on in-game state
-        const char *ne = D_80383010.unk3_6 ? sure : yesno;
-
-        // Set choosen string to zoombox
-        func_8031877C(box);
-        gczoombox_setStrings(box, 1, (char **)&ne);
-    }
-}
-
-// TODO: Ugly workaround
-static u32 inPauseMenu = 0;
-
+// Step 1: Track when we enter the exit game confirmation
 RECOMP_HOOK("gcPauseMenu_update")
 void startEvent()
 {
-    if(disabled)
-        return;
-
-    if(D_80383010.state != 5)
-    {
-        inPauseMenu = 0;
-        return;
-    }
-
-    if(inPauseMenu)
-        return;
-
-    inPauseMenu = 1;
+    if(!disabled && !tracker && D_80383010.state == 5)
+        tracker = 1;
 }
 
+// Reset tracker when pause menu left
 RECOMP_HOOK_RETURN("gcPauseMenu_update")
 void stopEvent()
 {
-    if(D_80383010.state != 5)
-    {
-        inPauseMenu = 0;
-        return;
-    }
-
-    if(inPauseMenu == 2)
-        D_8036C4E0[D_80383010.selection].unkF = 1;
+    tracker = 0;
 }
 
-RECOMP_HOOK("func_803183A4")
-void onSetTextBox(void *box, char *old)
+RECOMP_HOOK_RETURN("gczoombox_setStrings")
+void overwriteString()
 {
-    if(D_80383010.state != 5)
-    {
-        inPauseMenu = 0;
-        return;
-    }
-
-    if(inPauseMenu != 1 || box != D_80383010.zoombox[D_80383010.selection])
+    if(!tracker)
         return;
 
-    inPauseMenu = 2;
+    // get pointer to text
+    u8 *ptr = (u8 *)D_80383010.zoombox[D_80383010.selection];
+    ptr += 0x13C;
+    const char *str = *(const char **)ptr;
 
-    if(old[0] == 'A')
-    {
-        const char *ne = D_80383010.unk3_6 ? sure : yesno;
-        gczoombox_setStrings(box, 1, (char **)&ne);
-    }
+    // Check pointer and first char for validity
+    if(str == NULL || str[0] != 'A')
+        return;
+
+    // Replace string pointer inside of textbox
+    str++;
+    if(strcmp((char *)str, "RE YOU SURE?") == 0)
+        *(const char **)ptr = "SICHER?";
+    else if(strcmp((char *)str, " - YES, B - NO") == 0)
+        *(const char **)ptr = "A - JA, B - NEIN";
+
+    // Reset tracker
+    tracker = 0;
 }
