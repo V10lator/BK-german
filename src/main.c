@@ -16,7 +16,6 @@ RECOMP_IMPORT("bk_recomp_asset_expansion_pak", void bk_recomp_aep_unregister_rep
 
 // Our variables
 static char new[2][0x20];
-static char *newPA[2] = { new[0], new[1] };
 static unsigned int tracker = 0;
 static unsigned int disabled = 0;
 
@@ -42,13 +41,13 @@ void onInit()
         bk_recomp_aep_register_replacement(asset_name[i], (void *)asset_data[i]);
 
     // Replace global pointers to menu strings
-    CONTROL_STICK_INSTRUCTIONS = (u8 *)"W[HLE MIT DEM 3D-STICK EIN SPIEL AUS.";
-    ERASE_INSTRUCTIONS = (u8 *)"DR]CKE A, UM ZU SPIELEN, ODER DEN Z-TRIGGER, UM DEN SPIELSTAND ZU L\\SCHEN!";
-    ERASE_CONFIRMATION = (u8 *)"SICHER? DR]CKE A, UM ZU BEST[TIGEN, ODER B, UM ZU WIDERRUFEN.";
+    CONTROL_STICK_INSTRUCTIONS = "W[HLE MIT DEM 3D-STICK EIN SPIEL AUS.";
+    ERASE_INSTRUCTIONS = "DR]CKE A, UM ZU SPIELEN, ODER DEN Z-TRIGGER, UM DEN SPIELSTAND ZU L\\SCHEN!";
+    ERASE_CONFIRMATION = "SICHER? DR]CKE A, UM ZU BEST[TIGEN, ODER B, UM ZU WIDERRUFEN.";
 
-    D_8036C4E0[0].str = (u8 *)"ZUR]CK ZUM SPIEL";
-    D_8036C4E0[2].str = (u8 *)"STATISTIK";
-    D_8036C4E0[3].str = (u8 *)"SICHERN UND ENDE";
+    D_8036C4E0[0].str = "ZUR]CK ZUM SPIEL";
+    D_8036C4E0[2].str = "STATISTIK";
+    D_8036C4E0[3].str = "SICHERN UND ENDE";
 }
 
 // Overwrite text of game information zoombox (start game menu)
@@ -59,7 +58,7 @@ void overwriteGKZoombox()
         return;
 
     // Get text from zoombox (without having a struct, so pointer magic)
-    u8 *ptr = (u8 *)chGameSelectBottomZoombox;
+    u8 *ptr = chGameSelectBottomZoombox;
     ptr += 0x13C;
 
     char *old0 = *(char **)ptr;
@@ -135,7 +134,7 @@ void overwriteString()
         return;
 
     // get pointer to text
-    u8 *ptr = (u8 *)D_80383010.zoombox[D_80383010.selection];
+    u8 *ptr = D_80383010.zoombox[D_80383010.selection];
     ptr += 0x13C;
     const char *str = *(const char **)ptr;
 

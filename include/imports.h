@@ -7,10 +7,10 @@
 #include "recompconfig.h"
 
 // core2/ch/gameSelect.c
-extern u8 *CONTROL_STICK_INSTRUCTIONS;
-extern u8 *ERASE_INSTRUCTIONS;
-extern u8 *ERASE_CONFIRMATION;
-extern void *chGameSelectBottomZoombox;
+extern char *CONTROL_STICK_INSTRUCTIONS;
+extern char *ERASE_INSTRUCTIONS;
+extern char *ERASE_CONFIRMATION;
+extern u8 *chGameSelectBottomZoombox;
 
 // core2/gc/zoombox.c
 extern u32 gczoombox_setStrings(void *, s32, char **);
@@ -23,7 +23,7 @@ extern u32 func_8031877C(void *);
 typedef struct {
     f32 delay;
     f32 unk4;
-    u8 *str;
+    char *str;
     s16 y;
     u8 portrait;
     u8 unkF;
@@ -50,7 +50,7 @@ typedef struct {
     s8          joystick_frame;
     u8          joystick_frame_count;
     f32         unkC;
-    void       *zoombox[4];
+    u8         *zoombox[4];
     f32         unk20;
     void       *joystick_sprite;
     f32         unk28;
