@@ -85,7 +85,7 @@ void overwriteGKZoombox()
         // First line
         // Replace "TIME XX:YY:ZZ," with "ZEIT XX:YY:ZZ,"
         old0 += 5;
-        strcpy(new[0], "ZEIT ");
+        strcat(new[0], "ZEIT ");
         strcat_till(new[0], old0, ',');
         strcat(new[0], ",");
 
@@ -105,9 +105,10 @@ void overwriteGKZoombox()
         strcat(new[1], old1);
     }
 
-    // Finally set the new strings in-game
-    func_8031877C(chGameSelectBottomZoombox);
-    gczoombox_setStrings(chGameSelectBottomZoombox, 2, newPA);
+    // Set new strings
+    *(char **)ptr = new[1];
+    ptr -= sizeof(char *);
+    *(char **)ptr = new[0];
 }
 
 // Overwrite text of exit game confirmation - this has multiple steps
