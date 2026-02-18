@@ -8,7 +8,11 @@ The update system of Thunderstore is a bit tricky, so versions prior to 1.0.3 wo
 Delete all `german-1.0.?.nrm` files from your local mods folder in case you used older versions than 1.0.3
 
 ### Conflicts
-This mod conflicts with the Lartin 1 mod.
+This mod conflicts with the Latin 1 mod.
+
+### Tools used / credits
+- [Banjo-Kazooie Editor](https://pacochan.net/software/banjo-kazooie-editor/)
+- [BK-PAL-lang-C-converter](https://github.com/V10lator/BK-PAL-lang-C-converter)
 
 ### Images
 ![1.jpg](https://public.v10lator.de/html/bk-ger/1.jpg)
