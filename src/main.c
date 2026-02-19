@@ -127,7 +127,7 @@ void stopEvent()
     tracker = 0;
 }
 
-RECOMP_HOOK_RETURN("gczoombox_setStrings")
+RECOMP_HOOK_RETURN("func_803183A4")
 void overwriteString()
 {
     if(!tracker)
