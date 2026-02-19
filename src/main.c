@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "recomputils.h"
 #include "recompconfig.h"
+#include "string.h"
 
 #include "dialogs.h"
 #include "error.h"
@@ -96,8 +97,8 @@ void overwriteGKZoombox()
             strcat(new[1], "E");
 
         // Replace "X NOTE[S]" with "X NOTE[N]"
-        old1 = strstr(old1, ',');
-        char *n = strstr(old1, 'S');
+        old1 = strstrc(old1, ',');
+        char *n = strstrc(old1, 'S');
         if(n)
             *n = 'N';
 

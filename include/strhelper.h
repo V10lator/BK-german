@@ -2,11 +2,9 @@
 
 #include "functions.h"
 
-int strcmp(char *a, char *b);
-int memcmp(u8 *a, u8 *b, int size);
-//void memcpy(u8 *to, const u8 *from, int size);
+extern int strcmp(const char *a, const char *b);
+extern int memcmp(const u8 *a, const u8 *b, int size);
 char *strcpy_till(char *to, const char *from, char till);
-//void strcpy(char *to, const char *from);
 char *strcat_till(char *to, const char *from, char till);
-//void strcat(char *to, const char *from);
-char *strstr(char *haystack, char needle);
+extern char *strstr(const char *haystack, const char *needle);
+char *strstrc(const char *haystack, char needle);
