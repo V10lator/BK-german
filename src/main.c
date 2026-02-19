@@ -144,11 +144,7 @@ void overwriteString()
         return;
 
     // Replace string pointer inside of textbox
-    str++;
-    if(strcmp((char *)str, "RE YOU SURE?") == 0)
-        *(const char **)ptr = "SICHER?";
-    else if(strcmp((char *)str, " - YES, B - NO") == 0)
-        *(const char **)ptr = "A - JA, B - NEIN";
+    *(const char **)ptr = D_80383010.unk3_6 ? "SICHER?" : "A - JA, B - NEIN";
 
     // Reset tracker
     tracker = 0;
