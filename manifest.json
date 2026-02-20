@@ -1,6 +1,6 @@
 {
     "name": "German",
-    "version_number": "1.2.1",
+    "version_number": "1.3.0",
     "website_url": "https://github.com/V10lator/BK-german",
     "description": "A german language mod",
     "dependencies": [ "Dario-Asset_Expansion_Pak-0.0.3" ]
