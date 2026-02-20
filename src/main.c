@@ -49,6 +49,8 @@ void onInit()
     D_8036C4E0[0].str = "ZUR]CK ZUM SPIEL";
     D_8036C4E0[2].str = "STATISTIK";
     D_8036C4E0[3].str = "SICHERN UND ENDE";
+
+    D_8036C58C[0].string = (u8 *)"GESAMTSTATISTIK";
 }
 
 // Overwrite text of game information zoombox (start game menu)

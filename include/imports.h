@@ -5,6 +5,7 @@
 #include "variables.h"
 #include "recomputils.h"
 #include "recompconfig.h"
+#include "structs.h"
 
 // core2/ch/gameSelect.c
 extern char *CONTROL_STICK_INSTRUCTIONS;
@@ -78,6 +79,7 @@ typedef struct {
 } D_80383010_struct;
 
 extern struct1As D_8036C4E0[4];
+extern struct1Cs_1 D_8036C58C[0xD];
 extern D_80383010_struct D_80383010;
 
 extern u32 func_803183A4(void *, char *);
