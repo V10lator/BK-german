@@ -83,3 +83,29 @@ extern struct1Cs_1 D_8036C58C[0xD];
 extern D_80383010_struct D_80383010;
 
 extern u32 func_803183A4(void *, char *);
+
+//
+typedef struct
+{
+    u8 map;
+    s8 exit;
+    s16 x;   //0x2
+    char *str; //0x4
+    s8 unk8;
+} ParadeInfo;
+
+typedef struct
+{
+    u8 state;
+    u8 indx;
+    u8 count;
+    s8 y_position;
+    s8 scroll_frame;
+    u8 unk5;
+    u8 parade_id;
+    u8 jiggyscore; //jiggy total
+    s32 unk8;
+    ParadeInfo *parade_element;
+} D_803830F0_struct;
+
+extern D_803830F0_struct D_803830F0;

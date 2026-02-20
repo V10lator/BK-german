@@ -13,6 +13,8 @@ This mod conflicts with the Latin 1 mod.
 ### Tools used / credits
 - [Banjo-Kazooie Editor](https://pacochan.net/software/banjo-kazooie-editor/)
 - [BK-PAL-lang-C-converter](https://github.com/V10lator/BK-PAL-lang-C-converter)
+- [iCloudius](https://github.com/Cloudydude) from [N64 Recomp Modding](http://discord.gg/H2RAnQ4Vec) for pointing into the right direction about how to change credit scenes
+- Wedarobi  for helping with getting more asset dumps than Banjo-Kazooie Editor provides
 
 ### Images
 ![1.jpg](https://public.v10lator.de/html/bk-ger/1.jpg)
