@@ -254,7 +254,7 @@ void overwriteString()
 RECOMP_HOOK("gcparade_setState")
 void trackParade(u32 next_state)
 {
-    if(next_state == 1)
+    if(!disabled && next_state == 1)
         tracker |= 2;
 }
 
@@ -269,6 +269,9 @@ void trackParade(u32 next_state)
 RECOMP_HOOK("gcparade_8031AC8C")
 void patchParade()
 {
+    if(disabled)
+        return;
+
     if(tracker & 2)
     {
         D_803830F0.parade_element = (ParadeInfo *)paradeFF;
