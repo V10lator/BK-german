@@ -2,7 +2,7 @@
 
 #include "functions.h"
 
-#define ASSETS_SIZE       919
+#define ASSETS_SIZE       913
 #define ASSETS_SIZES_SIZE 200
 
 extern const u8 *asset_data[ASSETS_SIZE];

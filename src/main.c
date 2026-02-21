@@ -50,7 +50,7 @@ static const ParadeInfo paradeFF[PARADE_FF_SIZE] = {
     {MAP_12_GV_GOBIS_VALLEY,        0x39, 100, "TRUNKER",          0},
     {MAP_12_GV_GOBIS_VALLEY,        0x38, 125, "GOBI",             0},
     {MAP_16_GV_RUBEES_CHAMBER,      0x04, 35, "RUBEE AND TOOTS",   0},
-    {MAP_1C_MMM_CHURCH,             0x05, 90, "MOTZAND",            0},
+    {MAP_1C_MMM_CHURCH,             0x05, 90, "MOTZAND",           0},
     {MAP_26_MMM_NAPPERS_ROOM,       0x06, 110, "NAPPER",           0},
     {MAP_2C_MMM_BATHROOM,           0x03, 115, "LOGGO",            0},
     {MAP_31_RBB_RUSTY_BUCKET_BAY,   0x27, 105, "SNORKEL",          0},
@@ -132,9 +132,16 @@ void onInit()
         return;
     }
 
-    int i = 0;
+    // Move furnance fun credit dialogs up +1 after rubee and tots to make place for motzand
+    int i = 0x11C8;
+    for( ; i >= 0x11C3; i--)
+    {
+        void *asset = assetcache_get(i++);
+        bk_recomp_aep_register_replacement(i--, asset);
+    }
+
     // Feed quiz/grunty asset replacements to AEP
-    for( ; i < ASSETS_SIZES_SIZE; i++)
+    for(i = 0 ; i < ASSETS_SIZES_SIZE; i++)
         bk_recomp_aep_register_replacement_with_size(asset_name[i], (void *)asset_data[i], (u32)asset_size[i]);
 
     // Feed dialog asset replacements to AEP
@@ -151,6 +158,33 @@ void onInit()
     D_8036C4E0[3].str = "SICHERN UND ENDE";
 
     D_8036C58C[0].string = (u8 *)"GESAMTSTATISTIK";
+}
+
+// Game exit, clean up
+RECOMP_HOOK_RETURN("mainThread_entry")
+void onExit()
+{
+    if(disabled)
+        return;
+
+    // Unregister shifted dialogs (furnance fun)
+    int i = 0x11C4;
+    for( ; i < 0x11CA; i++)
+        bk_recomp_aep_unregister_replacement(i);
+
+    // Release holded assets for shift (furnance fun)
+    for(i = 0x11C3; i < 0x11C9; i++)
+    {
+        void *asset = assetcache_get(i);
+        assetcache_release(asset);
+        assetcache_release(asset);
+    }
+
+    // Unregister PAL assets
+    for(i = 0; i < ASSETS_SIZE; i++)
+        bk_recomp_aep_unregister_replacement(asset_name[i]);
+
+    disabled = 0;
 }
 
 // Overwrite text of game information zoombox (start game menu)

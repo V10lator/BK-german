@@ -84,7 +84,7 @@ extern D_80383010_struct D_80383010;
 
 extern u32 func_803183A4(void *, char *);
 
-//
+// core2/gc/parade.c
 typedef struct
 {
     u8 map;
@@ -109,3 +109,7 @@ typedef struct
 } D_803830F0_struct;
 
 extern D_803830F0_struct D_803830F0;
+
+// core2/code_B3A80.c
+extern void *assetcache_get(enum asset_e assetId);
+s32 assetcache_release(void * arg0);
