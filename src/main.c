@@ -167,21 +167,20 @@ void onExit()
     if(disabled)
         return;
 
-    // Unregister shifted dialogs (furnance fun)
-    int i = 0x11C4;
-    for( ; i < 0x11CA; i++)
-        bk_recomp_aep_unregister_replacement(i);
-
     // Unregister PAL assets
-    for(i = 0; i < ASSETS_SIZE; i++)
-        bk_recomp_aep_unregister_replacement(asset_name[i]);
+    int i = 0;
+    while(i < ASSETS_SIZE)
+        bk_recomp_aep_unregister_replacement(asset_name[i++]);
 
-    // Release holded assets for shift (furnance fun)
-    for(i = 0x11C3; i < 0x11C9; i++)
+    // Unregister shifted dialogs (furnance fun) and release holded assets
+    i = 0x11C3;
+    while(i < 0x11C9)
     {
-        void *asset = assetcache_get(i);
+        void *asset = assetcache_get(i++);
         assetcache_release(asset);
         assetcache_release(asset);
+
+        bk_recomp_aep_unregister_replacement(i);
     }
 
     disabled = 0;
