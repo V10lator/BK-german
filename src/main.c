@@ -239,37 +239,29 @@ void overwriteString()
     *(const char **)ptr = D_80383010.unk3_6 ? "SICHER?" : "A - JA, B - NEIN";
 
     // Reset tracker
-    tracker &= ~(1);
+    stopEvent();
 }
 
 RECOMP_HOOK("gcparade_setState")
 void trackParade(u32 next_state)
 {
-    switch(next_state)
-    {
-        case 1:
-            tracker |= 4;
-        case 2:
-            tracker |= 2;
-    }
+    if(next_state == 1)
+        tracker |= 2;
 }
 
 RECOMP_HOOK("gcparade_8031AC8C")
 void patchParade()
 {
-    if(!(tracker & 2))
-        return;
-
-    if(tracker & 4)
+    if(tracker & 2)
     {
         D_803830F0.parade_element = (ParadeInfo *)paradeFF;
         D_803830F0.count = PARADE_FF_SIZE;
+
+        tracker &= ~(2);
     }
     else
     {
         D_803830F0.parade_element = (ParadeInfo *)paradeFC;
         D_803830F0.count = PARADE_FC_SIZE;
     }
-
-    tracker &= ~(6);
 }
