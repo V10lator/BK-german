@@ -167,6 +167,8 @@ void onExit()
     if(disabled)
         return;
 
+    disabled = 0;
+
     // Unregister PAL assets
     int i = 0;
     while(i < ASSETS_SIZE)
@@ -182,8 +184,6 @@ void onExit()
 
         bk_recomp_aep_unregister_replacement(i);
     }
-
-    disabled = 0;
 }
 
 // Overwrite text of game information zoombox (start game menu)
@@ -269,6 +269,9 @@ void overwriteString()
     if(!(tracker & 1))
         return;
 
+    // Reset tracker
+    stopEvent();
+
     // get pointer to text
     u8 *ptr = D_80383010.zoombox[D_80383010.selection];
     ptr += 0x13C;
@@ -276,9 +279,6 @@ void overwriteString()
 
     // Replace string pointer inside of textbox
     *(const char **)ptr = D_80383010.unk3_6 ? "SICHER?" : "A - JA, B - NEIN";
-
-    // Reset tracker
-    stopEvent();
 }
 
 // Patch parade/credits to PAL style. Has multipe steps, too
@@ -307,11 +307,11 @@ void patchParade()
 
     if(tracker & 2)
     {
-        D_803830F0.parade_element = (ParadeInfo *)paradeFF;
-        D_803830F0.count = PARADE_FF_SIZE;
-
         // Reset tracker
         tracker &= ~(2);
+
+        D_803830F0.parade_element = (ParadeInfo *)paradeFF;
+        D_803830F0.count = PARADE_FF_SIZE;
     }
     else
     {
