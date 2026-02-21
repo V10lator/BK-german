@@ -172,6 +172,10 @@ void onExit()
     for( ; i < 0x11CA; i++)
         bk_recomp_aep_unregister_replacement(i);
 
+    // Unregister PAL assets
+    for(i = 0; i < ASSETS_SIZE; i++)
+        bk_recomp_aep_unregister_replacement(asset_name[i]);
+
     // Release holded assets for shift (furnance fun)
     for(i = 0x11C3; i < 0x11C9; i++)
     {
@@ -179,10 +183,6 @@ void onExit()
         assetcache_release(asset);
         assetcache_release(asset);
     }
-
-    // Unregister PAL assets
-    for(i = 0; i < ASSETS_SIZE; i++)
-        bk_recomp_aep_unregister_replacement(asset_name[i]);
 
     disabled = 0;
 }
