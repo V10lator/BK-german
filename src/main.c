@@ -20,6 +20,12 @@ static char new[2][0x20];
 static unsigned int tracker = 0;
 static unsigned int disabled = 0;
 
+/*
+ * Patched parade info arrays and new sizes
+ *
+ * FF = Furnance fun
+ * FC = final character parade / end of game
+ */
 #define PARADE_FF_SIZE 0x1C
 #define PARADE_FC_SIZE 0x39
 
@@ -242,6 +248,9 @@ void overwriteString()
     stopEvent();
 }
 
+// Patch parade/credits to PAL style. Has multipe steps, too
+
+// Track parade init
 RECOMP_HOOK("gcparade_setState")
 void trackParade(u32 next_state)
 {
@@ -249,6 +258,14 @@ void trackParade(u32 next_state)
         tracker |= 2;
 }
 
+/*
+ * This gets called two times in gcparade_setState:
+ *   if next_state == 1 then it's furnance fun parade init'
+ *   else if next_state == 2 then it's end game parade init
+ *
+ * In both events it gets called right after gcparade_setState setted the parade info array pointer and size, so perfect time to overwrite that.
+ * Use tracker value from previous hook to decide if furnance fun or end game
+ */
 RECOMP_HOOK("gcparade_8031AC8C")
 void patchParade()
 {
@@ -257,6 +274,7 @@ void patchParade()
         D_803830F0.parade_element = (ParadeInfo *)paradeFF;
         D_803830F0.count = PARADE_FF_SIZE;
 
+        // Reset tracker
         tracker &= ~(2);
     }
     else
