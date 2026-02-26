@@ -1,6 +1,6 @@
 [manifest]
 id = "de_v10lator_ger"
-version = "1.3.4"
+version = "1.3.5"
 display_name = "German language"
 description = "\nConflicts: This mod conflicts with the Latin 1 mod\n\nTools used / credits:\n - Banjo-Kazooie Editor\n - BK-PAL-lang-C-converter\n - iCloudius for pointing into the right direction about how to change credit scenes\n - Wedarobi for helping with getting more asset dumps than Banjo-Kazooie Editor provides"
 short_description = "This brings the german PAL translation into the recomp"
