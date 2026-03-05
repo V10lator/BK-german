@@ -319,3 +319,63 @@ void patchParade()
         D_803830F0.count = PARADE_FC_SIZE;
     }
 }
+
+// Workaround for https://github.com/BanjoRecomp/BanjoRecomp/issues/278
+// None-patch version - remove all 0xFDs from the out string after return
+static char *replacedText = NULL;
+
+RECOMP_HOOK("replaceText")
+void replaceTextTracker(char *out, char *in, char *rep, u32 arg3, u32 wobble)
+{
+    if(!arg3 && wobble)
+        replacedText = out;
+}
+RECOMP_HOOK_RETURN("replaceText")
+void fixReplacedText()
+{
+    if(replacedText == NULL)
+        return;
+
+    unsigned int x = 0;
+    unsigned int i = 0;
+    for( ; replacedText[i + x] != '\0'; i++)
+    {
+        if(replacedText[i + x] == 0xFD)
+            x++;
+
+        if(x)
+            replacedText[i] = replacedText[i + x];
+    }
+
+    replacedText[i] = '\0';
+    replacedText = NULL;
+}
+// Patch version - never add 0xFDs to the out string
+/*
+RECOMP_PATCH void replaceText(char *out, char *in, char *rep, u32 arg3, u32 wobble)
+{
+    int oi = 0;
+    for(int i = 0; in[i] != '\0'; i++)
+    {
+        if(in[i] == ((arg3) ? 0xE : '~'))
+        {
+            if (wobble)
+                out[oi++] = 0x68;
+
+            for (int j = 0; rep[j] != '\0'; j++)
+            {
+                out[oi++] = rep[j];
+                if (wobble && !arg3 && rep[j] == ' ')
+                    out[oi++] = 0x68;
+            }
+
+            if (wobble)
+                out[oi++] = 0x6C;
+        }
+        else
+            out[oi++] = in[i];
+    }
+
+    out[oi] = '\0';
+}
+*/
