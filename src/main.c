@@ -327,7 +327,7 @@ static char *replacedText = NULL;
 RECOMP_HOOK("replaceText")
 void replaceTextTracker(char *out, char *in, char *rep, u32 arg3, u32 wobble)
 {
-    if(!arg3 && wobble)
+    if(!disabled && !arg3 && wobble)
         replacedText = out;
 }
 RECOMP_HOOK_RETURN("replaceText")
