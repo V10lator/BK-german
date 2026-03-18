@@ -49,7 +49,7 @@ static const ParadeInfo paradeFF[PARADE_FF_SIZE] = {
     {MAP_27_FP_FREEZEEZY_PEAK,          0x3E, 110,  "WOZZA",                0},
     {MAP_12_GV_GOBIS_VALLEY,            0x39, 100,  "TRUNKER",              0},
     {MAP_12_GV_GOBIS_VALLEY,            0x38, 125,  "GOBI",                 0},
-    {MAP_16_GV_RUBEES_CHAMBER,          0x04, 35,   "RUBEE AND TOOTS",      0},
+    {MAP_16_GV_RUBEES_CHAMBER,          0x04, 35,   "RUBEE UND TOOTS",      0},
     {MAP_1C_MMM_CHURCH,                 0x05, 90,   "MOTZAND",              0},
     {MAP_26_MMM_NAPPERS_ROOM,           0x06, 110,  "NAPPER",               0},
     {MAP_2C_MMM_BATHROOM,               0x03, 115,  "LOGGO",                0},
